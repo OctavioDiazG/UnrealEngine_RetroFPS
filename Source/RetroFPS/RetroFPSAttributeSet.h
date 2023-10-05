@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "AttributeSet.h"
 #include "AbilitySystemComponent.h"
+#include "GameplayEffectExtension.h"
 #include "RetroFPSAttributeSet.generated.h"
 
 /**
@@ -31,4 +32,8 @@ public:
 	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
 	FGameplayAttributeData Armour;
 	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, Armour)
+
+	virtual void PreAttributeChange(const FGameplayAttribute & Attribute, float & NewValue) override;
+	virtual bool PreGameplayEffectExecute(FGameplayEffectModCallbackData & Data) override;
+	
 };
