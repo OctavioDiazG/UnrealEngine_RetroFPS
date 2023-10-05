@@ -15,11 +15,28 @@ void URetroFPSAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribu
 
 bool URetroFPSAttributeSet::PreGameplayEffectExecute(FGameplayEffectModCallbackData& Data)
 {
-	float ArmourDamage = FMath::Abs(Data.EvaluatedData.Magnitude);
+	float AbsoluteMagnitude = FMath::Abs(Data.EvaluatedData.Magnitude);
 
-	if (Data.EvaluatedData.Attribute == GetArmourAttribute() && ArmourDamage > GetArmour() && Data.EvaluatedData.Magnitude < 0.0f)
+	if (Data.EvaluatedData.Magnitude > 0)
 	{
-		Health.SetCurrentValue(Health.GetCurrentValue() - (ArmourDamage - GetArmour()));
+		if (Data.EvaluatedData.Attribute == GetArmourAttribute() && GetArmour() + AbsoluteMagnitude >= 100.0f)
+		{
+			SetArmour(100);
+			return false;
+		}
+		if (Data.EvaluatedData.Attribute == GetHealthAttribute() && GetHealth() + AbsoluteMagnitude >= 100.0f)
+		{
+			SetHealth(100);
+			return false;
+		}
 	}
+	else
+	{
+		if (Data.EvaluatedData.Attribute == GetArmourAttribute() && AbsoluteMagnitude > GetArmour())
+		{
+			Health.SetCurrentValue(Health.GetCurrentValue() - (AbsoluteMagnitude - GetArmour()));
+		}
+	}
+
 	return true;
 }
