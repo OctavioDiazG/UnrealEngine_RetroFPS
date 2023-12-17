@@ -33,7 +33,17 @@ public:
 	FGameplayAttributeData Armour;
 	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, Armour)
 
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData Bullets;
+	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, Bullets)
+
+	UPROPERTY(BlueprintReadOnly, Category = "Attributes")
+	FGameplayAttributeData Rockets;
+	ATTRIBUTE_ACCESSORS(URetroFPSAttributeSet, Rockets);
+	
+
 	virtual void PreAttributeChange(const FGameplayAttribute & Attribute, float & NewValue) override;
-	virtual bool PreGameplayEffectExecute(FGameplayEffectModCallbackData & Data) override;
+	virtual bool PreGameplayEffectExecute(struct FGameplayEffectModCallbackData & Data) override;
+	virtual void PostGameplayEffectExecute(const struct FGameplayEffectModCallbackData & Data) override;
 	
 };
