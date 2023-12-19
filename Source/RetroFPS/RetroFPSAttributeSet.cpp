@@ -8,6 +8,7 @@
 URetroFPSAttributeSet::URetroFPSAttributeSet()
 {
 	
+
 }
 
 void URetroFPSAttributeSet::PreAttributeChange(const FGameplayAttribute& Attribute, float& NewValue)
